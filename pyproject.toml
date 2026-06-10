@@ -1,0 +1,39 @@
+# =============================================================================
+# Drone Fuzzy-PSO Optimizer — metadados do pacote `dfpo` + config de testes
+# =============================================================================
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfpo"
+version = "0.1.0"
+description = "Sistema Inteligente Fuzzy-Evolutivo de Otimização de Asas para Drones de Entrega"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Integrante 1" },
+    { name = "Integrante 2" },
+    { name = "Integrante 3" },
+    { name = "Integrante 4" },
+]
+
+# As dependências canônicas ficam em requirements.txt (versões fixadas).
+# Aqui declaramos o mínimo para permitir `pip install -e .` durante o desenvolvimento.
+dependencies = [
+    "numpy",
+    "scipy",
+    "scikit-fuzzy",
+    "matplotlib",
+    "pandas",
+    "pyyaml",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["src"]
