@@ -1,0 +1,38 @@
+# =============================================================================
+# Configuração padrão dos experimentos — Drone Fuzzy-PSO Optimizer
+# (sementes, hiperparâmetros do PSO e cenários de teste)
+# Espelha os defaults de src/dfpo/config.py — fonte única de reprodutibilidade.
+# =============================================================================
+
+# Rigor experimental: >= 5 execuções independentes com sementes distintas.
+seeds: [1, 7, 13, 42, 99]
+
+pso:
+  n_particles: 30
+  n_iterations: 50
+  w: 0.729          # inércia (constrição de Clerc & Kennedy)
+  c1: 1.494         # coeficiente cognitivo
+  c2: 1.494         # coeficiente social
+  v_max_frac: 0.2   # limite de velocidade como fração do range
+
+calibration:
+  z_fixed: 5.0            # z fixo para a parte analítica da referência
+  reference: hybrid       # hybrid = superfície analítica (x,y) + dataset sintético (z)
+  objective: mse          # erro quadrático médio (a minimizar)
+
+operational:
+  z_values: [2.0, 5.0, 8.0]   # cargas úteis para a busca operacional
+
+baselines:
+  - random_search
+  - greedy_search
+
+# >= 6 cenários de teste (baixo, médio, alto, fronteiriço, conflitante, crítico).
+# A saída esperada será preenchida com a EXECUÇÃO REAL (Portão B).
+scenarios:
+  - {nome: baixo,        tipo: baixo,        x: 0.5, y: 0.4, z: 1.0}
+  - {nome: medio,        tipo: medio,        x: 2.4, y: 2.0, z: 5.0}
+  - {nome: alto,         tipo: alto,         x: 3.8, y: 3.2, z: 9.0}
+  - {nome: fronteirico,  tipo: fronteirico,  x: 2.5, y: 1.6, z: 5.0}
+  - {nome: conflitante,  tipo: conflitante,  x: 0.8, y: 3.6, z: 5.0}
+  - {nome: critico,      tipo: critico,      x: 0.5, y: 0.4, z: 9.5}
